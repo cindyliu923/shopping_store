@@ -1,7 +1,7 @@
 class Admin::ProductsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_admin
-  before_action :set_product, only: [:show, :edit, :update]
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
     @products = Product.all
@@ -30,6 +30,12 @@ class Admin::ProductsController < ApplicationController
       flash.now[:alert] = "productt was failed to update"
       render :edit
     end
+  end
+
+  def destroy
+    @product.destroy
+    redirect_to admin_products_path
+    flash[:alert] = "restaurant was deleted"
   end
 
   private
