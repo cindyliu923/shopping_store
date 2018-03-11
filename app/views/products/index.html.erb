@@ -1,1 +1,10 @@
-<h1>商品前台</h1>
+<% @products.each do |product| %>
+    <div>
+      <%= image_tag product.image, width: '200px' %>
+      <h3><%= link_to product.name, product_path(product) %></h3>
+      <p><%= truncate(product.description, length: 80) %></p>
+      <h4>$<%= product.price %></h4>
+    </div>
+<% end %>
+
+<%= paginate @products %>
