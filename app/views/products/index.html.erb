@@ -1,10 +1,20 @@
-<% @products.each do |product| %>
-    <div>
-      <%= image_tag product.image, width: '200px' %>
-      <h3><%= link_to product.name, product_path(product) %></h3>
-      <p><%= truncate(product.description, length: 80) %></p>
-      <h4>$<%= product.price %></h4>
+<div class="row">  
+  <div class="col-12 col-sm-6 col-md-9">
+    <div class="row"> 
+    <% @products.each do |product| %>
+    <div class="col-md-2">
+      <div class="product-box">
+        <%= link_to product_path(product) do %>
+          <%= image_tag product.image %><br>
+          <%= product.name %><br>
+        <% end %>
+          <p><%= truncate(product.description, length: 20) %></p>
+          <h4>$<%= product.price %></h4>
+        </div>
+      </div>
+    <% end %>
     </div>
-<% end %>
-
-<%= paginate @products %>
+    <%= paginate @products %>
+  </div>
+  <div class="col-6 col-md-3">Cart</div>
+</div>

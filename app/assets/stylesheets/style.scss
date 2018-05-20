@@ -1,0 +1,14 @@
+.product-box {
+  display: inline-block;
+  padding: 5px 15px;
+  margin: 5px;
+  text-align: center;
+}
+
+.product-box img {
+  width: 80px;
+}
+
+.product-box img:hover {
+  background-color: #eee
+}
