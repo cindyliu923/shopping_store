@@ -25,9 +25,15 @@
           <h4>$<%= item.product.price %></h4>
           <div class="cart-item-adjust">
             <%= item.quantity %>
+            <%= button_to 'Delete', remove_from_cart_product_path(item.product) %>
           </div>
         </div>
       </div>
   <% end %>
+  </div>
+  <hr>
+  <div class="subtotal">
+    <p>SUBTOTAL</p>
+    <p class="amount">$<%= current_cart.subtotal %></p>
   </div>
 </section>
