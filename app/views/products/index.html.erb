@@ -1,13 +1,14 @@
 <section id="product-list"> 
   <% @products.each do |product| %>
-    <div class="product-box">
+    <div id="<%= product.id%>" class="product-box">
       <%= link_to product_path(product) do %>
         <%= image_tag product.image %><br>
         <%= product.name %><br>
       <% end %>
         <p><%= truncate(product.description, length: 20) %></p>
-        <h4>$<%= product.price %></h4>
-        <%= button_to 'Add to Cart', add_product_to_cart_product_path(product) %>
+          <h4>$<%= product.price %></h4>
+        <button class="add-product">Add to Cart</button>
+  <!--  <%= button_to 'Add to Cart', add_product_to_cart_product_path(product) %> -->
     </div>
   <% end %>
   <%= paginate @products %>
@@ -16,20 +17,20 @@
 <section id="my-cart">
   <h3>Cart</h3>
   <hr>
-  <div class="item-list">
+  <div id="item-list">
     <% current_cart.cart_items.each do |item| %>
-      <div class="cart-item">
+      <div class="cart-item cart-item-<%= item.product.id%>">
       <%= image_tag item.product.image %><br>
         <div class="cart-item-info">
           <%= item.product.name %><br>
-          <h4>$<%= item.product.price %></h4>
+          <h4 class="price">$<%= item.product.price %></h4>
           <div class="cart-item-adjust">
-            <%= item.quantity %>
+          <div class="quantity"><%= item.quantity %></div>          
             <%= button_to 'Delete', remove_from_cart_product_path(item.product) %>
           </div>
         </div>
       </div>
-  <% end %>
+    <% end %>
   </div>
   <hr>
   <div class="subtotal">
@@ -37,3 +38,60 @@
     <p class="amount">$<%= current_cart.subtotal %></p>
   </div>
 </section>
+
+<script>
+
+$(".add-product").on("click", function(event) {
+  var id = event.target.parentNode.id;
+
+  $.ajax({
+    url: "products/" + id + "/add_product_to_cart",
+    method: "POST",
+    dataType: "json",
+    success: function(data) {
+      var item = document.createElement("div");
+      item.id = data["id"];
+
+      if ($(".cart-item-"+id).length) {
+        var quantity = $(".cart-item-"+id).find(".quantity").html();        
+        quantity ++;  
+        $(".cart-item-"+id).find(".quantity").html(quantity);         
+      } else {
+        item.className = "cart-item-"+id;
+        $(item).html($("#item-template").html());
+        $(item).find("img").attr("src",data["image"]);
+        $(item).find(".price").html("$"+data["price"]);
+        $(item).find(".name").html(data["name"]);
+        $(item).find(".quantity").html(1);        
+        $("#item-list").prepend(item);
+      }       
+      setTotal();  
+    }
+  });
+}); 
+
+  function setTotal(){  
+    var subtotal = 0
+    $(".cart-item").each(function(){  
+      var  quantity  =  parseInt ($(this).find(".quantity").html()); 
+      var  price  =  parseInt ($(this).find(".price").text().replace("$", ''));
+      subtotal += ( price * quantity );
+    })
+    $(".subtotal").find(".amount").html("$"+subtotal);
+  }
+
+</script>
+
+<script type="text/template" id="item-template">
+  <div class="cart-item">
+    <img class="image"></img><br>
+      <div class="cart-item-info">
+        <div class="name"></div>
+        <h4 class="price"></h4>
+        <div class="cart-item-adjust">
+          <div class="quantity"></div>          
+          <button class="delete-item">Delete</button>
+        </div>
+      </div>
+  </div>
+</script>

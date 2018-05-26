@@ -11,8 +11,13 @@ class ProductsController < ApplicationController
   def add_product_to_cart
     @product = Product.find(params[:id])
     current_cart.add_cart_item(@product)
-
-    redirect_back(fallback_location: root_path)
+    render :json => { 
+      :id => @product.id, 
+      :image => @product.image.url, 
+      :name => @product.name, 
+      :price => @product.price 
+    }
+  #  redirect_back(fallback_location: root_path)
   end
 
   def remove_from_cart
