@@ -72,3 +72,15 @@
   padding: 21px;
   border-radius: 4px;
 }
+
+.quantity-fram {
+  background-color: #DDDDDD; 
+  display: inline-flex;
+  justify-content: space-around; 
+  font-size: 16px;
+  width: 75px;
+}
+
+.add, .minus{
+  cursor: pointer;
+}

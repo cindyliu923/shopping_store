@@ -25,7 +25,9 @@
           <%= item.product.name %><br>
           <h4 class="price">$<%= item.product.price %></h4>
           <div class="cart-item-adjust">
-            <div class="quantity"><%= item.quantity %></div>  
+            <div class="quantity-fram">
+              <div class="minus">-</div><div class="quantity"><%= item.quantity %></div><div class="add">+</div>
+            </div>
             <button class="delete-item">Delete</button>        
           </div>
         </div>
@@ -83,7 +85,6 @@ $(".add-product").on("click", function(event) {
 
 $("#item-list").on("click", ".delete-item", function(event) {
   var id = event.target.parentNode.parentNode.parentNode.parentNode.id;
-  console.log(id);
   $.ajax({
     url: "products/" + id + "/remove_from_cart",
     method: "POST",
@@ -91,6 +92,38 @@ $("#item-list").on("click", ".delete-item", function(event) {
     success: function(data) {
       $(".cart-item-" + data["id"]).remove();
       setTotal();  
+    }
+  });
+});
+
+$("#item-list").on("click", ".add", function(event) {
+  var id = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+  $.ajax({
+    url: "products/" + id + "/add_cart_item_quantity",
+    method: "POST",
+    dataType: "json",
+    success: function(data) {
+      var quantity = $(".cart-item-"+id).find(".quantity").html();        
+      quantity ++;  
+      $(".cart-item-"+id).find(".quantity").html(quantity);         
+      setTotal();  
+    }
+  });
+});
+
+$("#item-list").on("click", ".minus", function(event) {
+  var id = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+  $.ajax({
+    url: "products/" + id + "/minus_cart_item_quantity",
+    method: "POST",
+    dataType: "json",
+    success: function(data) {
+      var quantity = $(".cart-item-"+id).find(".quantity").html();
+      if(quantity > 1){        
+        quantity --;  
+        $(".cart-item-"+id).find(".quantity").html(quantity);         
+        setTotal(); 
+      } 
     }
   });
 });
@@ -104,7 +137,9 @@ $("#item-list").on("click", ".delete-item", function(event) {
         <div class="name"></div>
         <h4 class="price"></h4>
         <div class="cart-item-adjust">
-          <div class="quantity"></div>          
+          <div class="quantity-fram">
+            <div class="minus">-</div><div class="quantity"></div><div class="add">+</div>
+          </div>
           <button class="delete-item">Delete</button>
         </div>
       </div>

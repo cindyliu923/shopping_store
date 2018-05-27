@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     member do
       post :add_product_to_cart
       post :remove_from_cart  
+      post :add_cart_item_quantity
+      post :minus_cart_item_quantity
     end
   end
 
