@@ -5,10 +5,9 @@
         <%= image_tag product.image %><br>
         <%= product.name %><br>
       <% end %>
-        <p><%= truncate(product.description, length: 20) %></p>
-          <h4>$<%= product.price %></h4>
-        <button class="add-product">Add to Cart</button>
-  <!--  <%= button_to 'Add to Cart', add_product_to_cart_product_path(product) %> -->
+      <p><%= truncate(product.description, length: 20) %></p>
+      <h4>$<%= product.price %></h4>
+      <button class="add-product">Add to Cart</button>
     </div>
   <% end %>
   <%= paginate @products %>
@@ -19,17 +18,19 @@
   <hr>
   <div id="item-list">
     <% current_cart.cart_items.each do |item| %>
-      <div class="cart-item cart-item-<%= item.product.id%>">
+    <div id="<%= item.product.id%>" class="cart-item-<%= item.product.id%>">
+      <div class="cart-item">
       <%= image_tag item.product.image %><br>
         <div class="cart-item-info">
           <%= item.product.name %><br>
           <h4 class="price">$<%= item.product.price %></h4>
           <div class="cart-item-adjust">
-          <div class="quantity"><%= item.quantity %></div>          
-            <%= button_to 'Delete', remove_from_cart_product_path(item.product) %>
+            <div class="quantity"><%= item.quantity %></div>  
+            <button class="delete-item">Delete</button>        
           </div>
         </div>
       </div>
+    </div>
     <% end %>
   </div>
   <hr>
@@ -79,6 +80,20 @@ $(".add-product").on("click", function(event) {
     })
     $(".subtotal").find(".amount").html("$"+subtotal);
   }
+
+$("#item-list").on("click", ".delete-item", function(event) {
+  var id = event.target.parentNode.parentNode.parentNode.parentNode.id;
+  console.log(id);
+  $.ajax({
+    url: "products/" + id + "/remove_from_cart",
+    method: "POST",
+    dataType: "json",
+    success: function(data) {
+      $(".cart-item-" + data["id"]).remove();
+      setTotal();  
+    }
+  });
+});
 
 </script>
 

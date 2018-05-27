@@ -17,15 +17,13 @@ class ProductsController < ApplicationController
       :name => @product.name, 
       :price => @product.price 
     }
-  #  redirect_back(fallback_location: root_path)
   end
 
   def remove_from_cart
     product = Product.find(params[:id])
     cart_item = current_cart.cart_items.find_by(product_id: product)
     cart_item.destroy
-
-    redirect_back(fallback_location: root_path)
+    render :json => { :id => product.id }
   end
 
 end
