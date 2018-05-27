@@ -1,0 +1,28 @@
+<section id="my-cart">
+  <h3>Cart</h3>
+  <hr>
+  <div id="item-list">    
+    <% current_cart.cart_items.each do |item| %>
+    <div id="<%= item.product.id%>" class="cart-item-<%= item.product.id%>">
+      <div class="cart-item">
+      <%= image_tag item.product.image %><br>
+        <div class="cart-item-info">
+          <%= item.product.name %><br>
+          <h4 class="price">$<%= item.product.price %></h4>
+          <div class="cart-item-adjust">
+            <div class="quantity-fram">
+              <div class="minus">-</div><div class="quantity"><%= item.quantity %></div><div class="add">+</div>
+            </div>
+            <button class="delete-item">Delete</button>        
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <hr>
+  <div class="subtotal">
+    <p>SUBTOTAL</p>
+    <p class="amount">$<%= current_cart.subtotal %></p>
+  </div>
+</section>
