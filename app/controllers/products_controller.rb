@@ -6,6 +6,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    @cart_item = current_cart.cart_items.find_by(product_id: @product)
   end
 
   def add_product_to_cart
@@ -29,12 +30,19 @@ class ProductsController < ApplicationController
   def add_cart_item_quantity
     product = Product.find(params[:id])
     cart_item = current_cart.cart_items.find_by(product_id: product)
-    cart_item.quantity += 1
-    cart_item.save!
-    render :json => { 
-      :id => product.id,
-      :quantity => cart_item.quantity
-    }
+    if cart_item.present?
+      cart_item.quantity += 1
+      cart_item.save!
+      render :json => { 
+        :id => product.id,
+        :quantity => cart_item.quantity 
+      }
+    else
+      render :json => { 
+        :id => product.id,
+#        :quantity => cart_item.quantity 
+      }
+    end
   end
 
   def minus_cart_item_quantity

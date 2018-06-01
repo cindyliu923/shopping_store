@@ -1,6 +1,7 @@
 <section id="my-cart">
   <h3>Cart</h3>
   <hr>
+  <div id="item">
   <div id="item-list">    
     <% current_cart.cart_items.each do |item| %>
     <div id="<%= item.product.id%>" class="cart-item-<%= item.product.id%>">
@@ -19,6 +20,7 @@
       </div>
     </div>
     <% end %>
+  </div>
   </div>
   <hr>
   <div class="subtotal">

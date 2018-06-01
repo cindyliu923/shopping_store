@@ -40,9 +40,9 @@ $(document).on("turbolinks:load", function() {
       success: function(data) {
         var item = document.createElement("div");
         item.id = data["id"];
-
-        if ($(".cart-item-"+id).length) {
-          var quantity = $(".cart-item-"+id).find(".quantity").html();        
+        
+        var quantity =(( $(".cart-item-"+id).find(".quantity").html() ) || 1);        
+        if ( $("#item").find(".cart-item-"+id).length ) {
           quantity ++;  
           $(".cart-item-"+id).find(".quantity").html(quantity);         
         } else {
@@ -51,23 +51,22 @@ $(document).on("turbolinks:load", function() {
           $(item).find("img").attr("src",data["image"]);
           $(item).find(".price").html("$"+data["price"]);
           $(item).find(".name").html(data["name"]);
-          $(item).find(".quantity").html(1);        
-          $("#item-list").prepend(item);
+          $("#item").find("#item-list").append(item);
+          $(".cart-item-"+id).find(".quantity").html(quantity);                  
         }       
           setTotal();  
         }
       });
     }); 
 
-
-  $("#item-list").on("click", ".delete-item", function(event) {
+  $("#my-cart").on("click", ".delete-item", function(event) {
     var id = event.target.parentNode.parentNode.parentNode.parentNode.id;
     $.ajax({
       url: "/products/" + id + "/remove_from_cart",
       method: "POST",
       dataType: "json",
       success: function(data) {
-        $(".cart-item-" + data["id"]).remove();
+        $("#item").find(".cart-item-" + data["id"]).remove();
         setTotal();  
       }
     });
@@ -80,9 +79,9 @@ $(document).on("turbolinks:load", function() {
       method: "POST",
       dataType: "json",
       success: function(data) {
-        var quantity = $(".cart-item-"+id).find(".quantity").html();        
+        var quantity = $(".cart-item-"+id).find(".quantity").html();
         quantity ++;  
-        $(".cart-item-"+id).find(".quantity").html(quantity);         
+        $(".cart-item-"+id).find(".quantity").html(quantity); 
         setTotal();  
       }
     });
