@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       post :remove_from_cart  
       post :add_cart_item_quantity
       post :minus_cart_item_quantity
+      get :view_cart
     end
   end
 

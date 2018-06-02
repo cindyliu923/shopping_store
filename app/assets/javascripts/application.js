@@ -21,9 +21,9 @@ $(document).on("turbolinks:load", function() {
 
   function setTotal(){  
     var subtotal = 0
-    $(".cart-item").each(function(){  
+    $(".cart-item").each(function(){
       var  quantity  =  parseInt ($(this).find(".quantity").html()); 
-      var  price  =  parseInt ($(this).find(".price").text().replace("$", ''));
+      var  price  =  parseInt ($(this).find(".price").text().replace("$", '')); 
       subtotal += ( price * quantity );
     })
     $(".subtotal").find(".amount").html("$"+subtotal);
@@ -81,7 +81,10 @@ $(document).on("turbolinks:load", function() {
       success: function(data) {
         var quantity = $(".cart-item-"+id).find(".quantity").html();
         quantity ++;  
-        $(".cart-item-"+id).find(".quantity").html(quantity); 
+        $(".cart-item-"+id).find(".quantity").html(quantity);
+        var price  =  parseInt ($(".cart-item-"+id).find(".price").text().replace("$", '')); 
+        var total = price * quantity;
+        $(".cart-item-"+id).find(".item-total").html("$"+total); 
         setTotal();  
       }
     });
@@ -97,7 +100,10 @@ $(document).on("turbolinks:load", function() {
         var quantity = $(".cart-item-"+id).find(".quantity").html();
         if(quantity > 1){        
           quantity --;  
-          $(".cart-item-"+id).find(".quantity").html(quantity);         
+          $(".cart-item-"+id).find(".quantity").html(quantity);
+          var price  =  parseInt ($(".cart-item-"+id).find(".price").text().replace("$", '')); 
+          var total = price * quantity;
+          $(".cart-item-"+id).find(".item-total").html("$"+total);          
           setTotal(); 
         } 
       }

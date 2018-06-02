@@ -58,4 +58,7 @@ class ProductsController < ApplicationController
     }
   end
 
+  def view_cart
+  end
+
 end
