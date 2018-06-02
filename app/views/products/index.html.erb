@@ -6,11 +6,13 @@
         <%= product.name %><br>
       <% end %>
       <p><%= truncate(product.description, length: 20) %></p>
-      <h4>$<%= product.price %></h4>
+      <h5>$<%= product.price %></h5>
       <button class="add-product">Add to Cart</button>
     </div>
   <% end %>
-  <%= paginate @products %>
+  <nav class="container">
+    <%= paginate @products %>
+  </nav>
 </section>
 <%= render :partial => "shared/cart_item_list" %>
   

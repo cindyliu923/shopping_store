@@ -1,32 +1,33 @@
 <div id="item-list">    
   <div class="container">
-  <div class="col-12 col-sm-10 col-md-2">
-    <%= image_tag(@product.image, width: 200 ) %>
-  </div>
-  <div class="col-12 col-sm-10 col-md-6">
-    <h3><%= @product.name %></h3>
-    <h4>$ <%= @product.price %></h4>
-    <p><%= simple_format @product.description %></p>
-    <div id="<%= @product.id %>" class="cart-item-<%= @product.id %>">
-      <div class="">
+    <div class="p-4"></div>
+    <div class="row align-self-center">
+    <div class="col-12 col-sm-10 col-md-2">
+      <%= image_tag(@product.image, width: 200 ) %>
+    </div>
+    <div class="col-12 col-sm-10 col-md-6">
+      <h3><%= @product.name %></h3>
+      <h4>$ <%= @product.price %></h4>
+      <p><%= simple_format @product.description %></p>
+      <div id="<%= @product.id %>" class="cart-item-<%= @product.id %>">
         <div class="">
-          <div id="<%= @product.id %>" class="product-show-button">
-            <div class="quantity-fram">
-              <div class="minus">-</div>
-              <div class="quantity">
-                <%= ( @cart_item.quantity if @cart_item.present? ) || 1 %>
+          <div class="">
+            <div id="<%= @product.id %>" class="product-show-button">
+              <div class="quantity-fram">
+                <div class="minus">-</div>
+                <div class="quantity">
+                  <%= ( @cart_item.quantity if @cart_item.present? ) || 1 %>
+                </div>
+                <div class="add">+</div>
               </div>
-              <div class="add">+</div>
+              <button class="add-product">Add to Cart</button>
             </div>
-            <button class="add-product">Add to Cart</button>
           </div>
         </div>
-        </div>
       </div>
+    </div>
     </div>
     <%= render :partial => "shared/cart_item_list" %>
   </div>
 </div>
-
 <%= render :partial => "shared/item_template" %>
-
