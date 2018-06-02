@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get :view_cart
     end
   end
+  resources :orders
 
   root "products#index"
 

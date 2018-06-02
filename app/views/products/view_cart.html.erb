@@ -1,49 +1,76 @@
-<section id="my-cart">
 <div class="container">
-  <div class="col-12 col-sm-10 col-md-12">    
-    <table class="table" id="item-list">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col">Price</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Subtotal</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody id="item">
-        <% current_cart.cart_items.each do |item| %>       
-          <tr id="<%= item.product.id%>" class="cart-item-<%= item.product.id%> cart-item">
-            <td><%= image_tag item.product.image %><%= item.product.name %></td>
-            <td class="price">$<%= item.product.price %></td>
-            <td>
-              <div class="">
-                <div class="">
-                  <div class="quantity-fram">
-                    <div class="minus">-</div>
-                    <div class="quantity"><%= item.quantity %></div>
-                    <div class="add">+</div>
+  <br>
+  <div class="card">
+    <h5 class="card-header">Shopping List</h5>
+    <div id="my-cart" class="card-body">
+      <div class="col-12 col-sm-10 col-md-12">    
+        <table class="table table-borderless" id="item-list">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Subtotal</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody id="item">
+            <% current_cart.cart_items.each do |item| %>       
+              <tr id="<%= item.product.id%>" class="cart-item-<%= item.product.id%> cart-item">
+                <td><%= image_tag item.product.image %><%= item.product.name %></td>
+                <td class="price">$<%= item.product.price %></td>
+                <td>
+                  <div class="">
+                    <div class="">
+                      <div class="quantity-fram">
+                        <div class="minus">-</div>
+                        <div class="quantity"><%= item.quantity %></div>
+                        <div class="add">+</div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </td>
-            <td class="item-total">$<%= item.item_total %></td>
-          <td>
-            <div class="">
-              <div class="">
-                <button class="delete-item">Delete</button>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <hr>
-    <div class="subtotal">
-      <p>SUBTOTAL</p>
-      <p class="amount">$<%= current_cart.subtotal %></p>
+                </td>
+                <td class="item-total">$<%= item.item_total %></td>
+                <td>
+                  <div class="">
+                    <div class="">
+                      <button class="delete-item">Delete</button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="subtotal">
+          <p>SUBTOTAL</p>
+          <p class="amount">$<%= current_cart.subtotal %></p>
+        </div>
+      </div>
     </div>
   </div>
+<br>
+  <div class="card">
+    <h5 class="card-header">Shopping Information</h5>
+    <div class="card-body">
+      <div class="col-md-4">
+        <%= form_for @order do |f| %>
+        <div class="form-group">
+          <%= f.label :name, 'Name' %>
+          <%= f.text_field :name %>
+        </div>
+        <div class="form-group">
+          <%= f.label :phone, 'Phone' %>
+          <%= f.text_field :phone %>
+        </div>
+        <div class="form-group">
+          <%= f.label :address, 'Address' %>
+          <%= f.text_field :address%>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <%= f.submit 'Checkout', class: "btn btn-primary" %>
+  <% end %>
 </div>
-</section>

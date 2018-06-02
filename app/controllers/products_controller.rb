@@ -59,6 +59,7 @@ class ProductsController < ApplicationController
   end
 
   def view_cart
+    @order = Order.new
   end
 
 end
