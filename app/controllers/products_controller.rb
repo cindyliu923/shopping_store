@@ -59,7 +59,11 @@ class ProductsController < ApplicationController
   end
 
   def view_cart
-    @order = Order.new
+    if session[:new_order_data].present?
+      @order = Order.new(session[:new_order_data])
+    else
+      @order = Order.new
+    end
   end
 
 end
