@@ -15,6 +15,7 @@
       <%= link_to "首頁", root_path, class: "navbar-brand" %>      
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav ml-auto">
+          <li class="nav-item nav-link"><%= link_to('Cart', view_cart_product_path(current_cart)) %></li>
         <% if current_user %>
           <% if current_user.admin? %>
             <li class="nav-item nav-link"><%= link_to 'Admin', admin_root_path %></li>
@@ -22,7 +23,7 @@
           <li class="nav-item nav-link"><%= link_to('Log out', destroy_user_session_path, method: :delete) %></li>
         <% else %>
           <li class="nav-item nav-link"><%= link_to('Log in', new_user_session_path) %></li>
-        <% end %>
+        <% end %>        
         </ul>
       </div>
     </nav>

@@ -50,6 +50,13 @@
     </div>
   </div>
 <br>
+<% if @order.errors.any? %>
+  <ul>
+    <% @order.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
   <div class="card">
     <h5 class="card-header">Shopping Information</h5>
     <div class="card-body">
