@@ -1,0 +1,45 @@
+<div class="container">
+  <br>
+  <% @orders.each do |order| %>
+  <div class="card">
+    <h5 class="card-header">Order # <%= order.sn %></h5>
+      <div class="card-group">
+        <div class="card" style="width: 50%;">
+          <div class="card-body">
+            <table class="table table-borderless">
+              <tbody>
+                <% order.order_items.each do |item| %>
+                  <tr>
+                    <td><%= item.product.name %></th>
+                    <td><%= item.quantity %></td>
+                    <td>$<%= item.price %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <ul class="list-inline">
+              <li class="list-inline-item">SUBTOTAL</li>  
+              <li class="list-inline-item float-center">$<%= order.amount %></li>
+            </ul>
+          </div>
+          <h5 class="card-header">Shopping Information</h5>
+          <div class="card-body">
+            <p class="card-text"><%= order.name %>, <%= order.phone %>, <%= order.address %></p>
+          </div>
+        </div>
+        <div class="card" style="width: 50%;">
+          <div class="card-body">
+            <p class="card-text text-center">
+              Payment Status: <%= order.payment_status %><br>
+              Shipping Status: <%= order.shipping_status %>
+            </p>
+          </div>
+        </div>
+      </div>
+  </div>
+  <br>
+  <% end %>
+</div>   
+<nav class="container">
+  <%= paginate @orders %>
+</nav>

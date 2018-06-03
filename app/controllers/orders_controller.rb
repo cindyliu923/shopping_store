@@ -1,5 +1,9 @@
 class OrdersController < ApplicationController
 
+  def index
+    @orders = Order.page(params[:page]).per(10)
+  end
+
   def create
     if current_user.nil?
       session[:new_order_data] = params[:order]
