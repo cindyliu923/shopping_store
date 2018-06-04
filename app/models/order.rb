@@ -15,5 +15,21 @@ class Order < ApplicationRecord
       )
     end
   end
+
+  def show_payment_status
+    if payment_status == "not_paid"
+      "Not Paid"
+    else
+      "Paid"
+    end
+  end
+
+  def show_shipping_status
+    if shipping_status == "not_shipped"
+      "Not Shipped"
+    else
+      "Shipped"
+    end
+  end
   
 end

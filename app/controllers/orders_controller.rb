@@ -23,6 +23,13 @@ class OrdersController < ApplicationController
     end
   end
 
+  def destroy
+    @order = Order.find(params[:id])
+    @order.destroy
+    redirect_to orders_path
+    flash[:alert] = "order was deleted"
+  end
+
   private
 
   def order_params

@@ -16,11 +16,12 @@
                   </tr>
                 <% end %>
               </tbody>
+                <tr>
+                  <td>SUBTOTAL</th>
+                  <td></td>
+                  <td>$<%= order.amount %></td>
+                </tr>                  
             </table>
-            <ul class="list-inline">
-              <li class="list-inline-item">SUBTOTAL</li>  
-              <li class="list-inline-item float-center">$<%= order.amount %></li>
-            </ul>
           </div>
           <h5 class="card-header">Shopping Information</h5>
           <div class="card-body">
@@ -28,11 +29,17 @@
           </div>
         </div>
         <div class="card" style="width: 50%;">
-          <div class="card-body">
-            <p class="card-text text-center">
-              Payment Status: <%= order.payment_status %><br>
-              Shipping Status: <%= order.shipping_status %>
-            </p>
+          <div class="card-body row justify-content-center align-items-center">
+            <div class="card-text text-center">
+              <h5>Payment Status: <%= order.show_payment_status %></h5>
+              <h5>Shipping Status: <%= order.show_shipping_status %></h5><br>            
+              <div class="col align-self-end">
+                <%= link_to 'Credit',orders_path, class: "btn btn-outline-success" %>
+                <%= link_to 'Web ATM',orders_path, class: "btn btn-outline-success" %>
+                <%= link_to 'ATM',orders_path, class: "btn btn-outline-success" %>
+                <%= link_to 'Cancel Order', order_path(order), method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-outline-warning" %>                
+              </div>
+            </div>
           </div>
         </div>
       </div>
