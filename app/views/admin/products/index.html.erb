@@ -1,14 +1,41 @@
-<h1>商品後台</h1>
-
-<ul>
-  <% @products.each do |product| %>
-  <li>
-    <%= product.name %>
-    <%= image_tag product.image, width: '30px' %>
-    <%= product.price %>
-    <%= link_to 'Edit Detial', edit_admin_product_path(product) %>
-    <%= link_to 'Delete', admin_product_path(product), method: :delete, data: {confirm:"Are you sure?"} %>
-  </li>
-  <% end %>
-</ul>
-<%= link_to 'Add New Product', new_admin_product_path %>
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col-12 col-md-12">
+      <nav class="navbar navbar-light bg-light">
+        <%= link_to 'Product', admin_products_path, class: "nav-link btn btn-outline-success" %>
+      </nav>
+    </div>
+    <div class="col-12 col-md-8">
+      <br>
+      <div>
+        <%= link_to 'Add New Product', new_admin_product_path, class: "btn btn-outline-secondary" %>
+      </div>
+      <br>
+      <table class="table table-bordered text-center">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Price</th>
+            <th colspan="2">Option</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @products.each do |product| %>
+          <tr>
+            <th scope="row"><%= product.name %></th>
+            <td><%= image_tag product.image, width: '30px' %></td>
+            <td>$<%= product.price %></td>
+            <td><%= link_to 'Edit Detial', edit_admin_product_path(product) %></td> 
+            <td><%= link_to 'Delete', admin_product_path(product), method: :delete, data: {confirm:"Are you sure?"} %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <nav class="container">
+        <%= paginate @products %>
+      </nav>
+    </div>
+  </div>
+</div>
