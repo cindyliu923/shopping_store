@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 
   def index
-    @orders = Order.page(params[:page]).per(10)
+    @orders = current_user.orders.order(created_at: :desc)
   end
 
   def create
@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
       if @order.save
         current_cart.destroy
         session.delete(:new_order_data)
+        UserMailer.notify_order_create(@order).deliver_now!
         redirect_to orders_path, notice: "new order created"
       else
         render "products/view_cart"
