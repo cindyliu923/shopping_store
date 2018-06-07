@@ -1,0 +1,46 @@
+<div class="container">
+  <br>
+  <div class="card">
+    <h5 class="card-header">Order # <%= @order.sn %></h5>
+      <div class="card-group">
+        <div class="card" style="width: 50%;">
+          <div class="card-body">
+            <table class="table table-borderless">
+              <tbody>
+                <% @order.order_items.each do |item| %>
+                  <tr>
+                    <td><%= item.product.name %></th>
+                    <td><%= item.quantity %></td>
+                    <td>$<%= item.price %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+                <tr>
+                  <td>SUBTOTAL</th>
+                  <td></td>
+                  <td>$<%= @order.amount %></td>
+                </tr>                  
+            </table>
+          </div>
+          <h5 class="card-header">Shopping Information</h5>
+          <div class="card-body">
+            <p class="card-text"><%= @order.name %>, <%= @order.phone %>, <%= @order.address %></p>
+          </div>
+        </div>
+        <div class="card" style="width: 50%;">
+          <div class="card-body row justify-content-center align-items-center">
+            <div class="card-text text-center">
+              <%= form_for  [:admin, @order] do |f| %>
+                <h5>Payment Status: <%= f.select(:payment_status, [['Not Paid', :not_paid], ['Paid', :paid]]) %></h5>
+                <h5>Shipping Status: <%= f.select(:shipping_status, [['Not Shipped', :not_shipped], ['Shipped', :shipped]]) %></h5><br>            
+                <div class="col align-self-end">
+                  <%= f.submit "Update", class: "btn btn-outline-success" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <br>
+</div>   
