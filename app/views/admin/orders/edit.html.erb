@@ -32,7 +32,7 @@
             <div class="card-text text-center">
               <%= form_for  [:admin, @order] do |f| %>
                 <h5>Payment Status: <%= f.select(:payment_status, [['Not Paid', :not_paid], ['Paid', :paid]]) %></h5>
-                <h5>Shipping Status: <%= f.select(:shipping_status, [['Not Shipped', :not_shipped], ['Shipped', :shipped]]) %></h5><br>            
+                <h5>Shipping Status: <%= f.select(:shipping_status, [['Not Shipped', :not_shipped], ['Shipped', :shipped], ['Cancelled', :cancelled]]) %></h5><br>            
                 <div class="col align-self-end">
                   <%= f.submit "Update", class: "btn btn-outline-success" %>
                 </div>

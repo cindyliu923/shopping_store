@@ -25,14 +25,12 @@ class OrdersController < ApplicationController
     end
   end
 
-  def destroy
-    @order = Order.find(params[:id])
-    if @order.shipping_status != "shipped"
-      @order.destroy
-      redirect_to orders_path
-      flash[:alert] = "order was deleted"
-    else
-      redirect_to orders_path, alert: "order has been shipped can't be deleted"
+  def update
+    @order = current_user.orders.find(params[:id])
+    if @order.shipping_status == "not_shipped"
+      @order.shipping_status = "cancelled"
+      @order.save
+      redirect_to orders_path, alert: "order##{@order.sn} cancelled."
     end
   end
 

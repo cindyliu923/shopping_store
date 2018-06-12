@@ -27,8 +27,10 @@ class Order < ApplicationRecord
   def show_shipping_status
     if shipping_status == "not_shipped"
       "Not Shipped"
-    else
+    elsif shipping_status == "shipped"
       "Shipped"
+    else 
+      "Cancelled"
     end
   end
   
