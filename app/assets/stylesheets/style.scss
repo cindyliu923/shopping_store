@@ -5,7 +5,6 @@
 }
 
 .product-box {
-  border: 1px solid #eee;
   display: inline-block;
   padding: 5px 20px;
   margin: 20px;
@@ -90,5 +89,9 @@ table td {
 
 thead, tbody {
   border-bottom: 1px solid #bbb;
+}
+
+.zoom-in {
+  cursor: zoom-in;
 }
 
