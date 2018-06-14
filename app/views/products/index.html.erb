@@ -1,3 +1,5 @@
+<%= render :partial => "shared/cart_item_list" %>
+
 <section id="product-list"> 
   <% @products.each do |product| %>
     <div id="<%= product.id%>" class="product-box">
@@ -14,6 +16,5 @@
     <%= paginate @products %>
   </nav>
 </section>
-<%= render :partial => "shared/cart_item_list" %>
   
 <%= render :partial => "shared/item_template" %>
