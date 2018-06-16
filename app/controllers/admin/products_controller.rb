@@ -25,15 +25,19 @@ class Admin::ProductsController < Admin::BaseController
       flash[:notice] = "product was successfully updated"
       redirect_to admin_products_path
     else
-      flash.now[:alert] = "productt was failed to update"
+      flash.now[:alert] = "product was failed to update"
       render :edit
     end
   end
 
   def destroy
-    @product.destroy
-    redirect_to admin_products_path
-    flash[:alert] = "restaurant was deleted"
+    if @product.destroy
+      redirect_to admin_products_path
+      flash[:alert] = "product was deleted"
+    else
+      flash[:alert] = "Cannot delete product because dependent cart_items exist"
+      redirect_to admin_products_path
+    end
   end
 
   private
