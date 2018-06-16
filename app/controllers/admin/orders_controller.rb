@@ -8,10 +8,10 @@ class Admin::OrdersController < Admin::BaseController
   def update
     if @order.update(order_params)
       if @order.payment_status == "paid" && @order.shipping_status == "shipped"
-        UserMailer.notify_order_shipped(@order).deliver_now
+        UserMailer.notify_order_shipped(@order).deliver_now!
       end
       if @order.payment_status == "paid" && @order.shipping_status == "not_shipped"
-        UserMailer.notify_order_paid(@order).deliver_now
+        UserMailer.notify_order_paid(@order).deliver_now!
       end
       flash[:notice] = "order was successfully updated"
       redirect_to admin_orders_path

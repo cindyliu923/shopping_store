@@ -3,7 +3,7 @@ namespace :dev do
   task fake_product: :environment do
     Product.destroy_all
 
-    1000.times do |i|
+    100.times do |i|
       Product.create!(
         name: FFaker::Name.first_name,
         description: FFaker::Lorem.paragraph,
