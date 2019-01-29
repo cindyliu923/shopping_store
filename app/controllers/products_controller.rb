@@ -12,11 +12,11 @@ class ProductsController < ApplicationController
   def add_product_to_cart
     @product = Product.find(params[:id])
     current_cart.add_cart_item(@product)
-    render :json => { 
-      :id => @product.id, 
-      :image => @product.image.url, 
-      :name => @product.name, 
-      :price => @product.price 
+    render :json => {
+      :id => @product.id,
+      :image => @product.image.url,
+      :name => @product.name,
+      :price => @product.price
     }
   end
 
@@ -33,14 +33,14 @@ class ProductsController < ApplicationController
     if cart_item.present?
       cart_item.quantity += 1
       cart_item.save!
-      render :json => { 
+      render :json => {
         :id => product.id,
-        :quantity => cart_item.quantity 
+        :quantity => cart_item.quantity
       }
     else
-      render :json => { 
+      render :json => {
         :id => product.id,
-#        :quantity => cart_item.quantity 
+#        :quantity => cart_item.quantity
       }
     end
   end
@@ -48,14 +48,19 @@ class ProductsController < ApplicationController
   def minus_cart_item_quantity
     product = Product.find(params[:id])
     cart_item = current_cart.cart_items.find_by(product_id: product)
-    if cart_item.quantity > 1
+    if cart_item.present? && cart_item.quantity > 1
       cart_item.quantity -= 1
       cart_item.save!
+      render :json => {
+        :id => product.id,
+        :quantity => cart_item.quantity
+      }
+    else
+      render :json => {
+        :id => product.id,
+#        :quantity => cart_item.quantity
+      }
     end
-    render :json => { 
-      :id => product.id,
-      :quantity => cart_item.quantity
-    }
   end
 
   def view_cart
